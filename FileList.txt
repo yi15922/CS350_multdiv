@@ -11,10 +11,17 @@ barrelshifter.v
 barrelshifter_tb.v
 claBlock.v
 claBlock_tb.v
+dffe.v
 full_adder.v
 full_adder_tb.v
 inverter.v
 inverter_tb.v
+multdiv.v
+multdiv_tb.v
 mux_4.v
 mux_8.v
 or_bitwise.v
+regfile.v
+register.v
+register_tb.v
+tristate_buffer.v
