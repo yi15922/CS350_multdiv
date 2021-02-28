@@ -7,8 +7,7 @@ adder_32_tb.v
 alu.v
 alu_tb.v
 and_bitwise.v
-barrelshifter.v
-barrelshifter_tb.v
+barrelshifter65.v
 claBlock.v
 claBlock_tb.v
 dffe.v
@@ -22,6 +21,6 @@ mux_4.v
 mux_8.v
 or_bitwise.v
 regfile.v
-register.v
-register_tb.v
-tristate_buffer.v
+register65.v
+register65_tb.v
+tristate_buffer65.v

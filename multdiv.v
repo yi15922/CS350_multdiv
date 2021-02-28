@@ -12,4 +12,10 @@ module multdiv(
 
     // add your code here
 
+    wire shiftMultipicand; 
+    wire [31:0] multiplicand;
+    assign multiplicand = shiftMultipicand ? multiplicand << 1 : multiplicand; 
+
+    //register64 reg()
+
 endmodule
