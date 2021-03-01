@@ -15,6 +15,8 @@ full_adder.v
 full_adder_tb.v
 inverter.v
 inverter_tb.v
+multControl.v
+multControl_tb.v
 multdiv.v
 multdiv_tb.v
 mux_4.v
