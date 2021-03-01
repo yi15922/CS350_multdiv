@@ -6,6 +6,12 @@ module alu(data_operandA, data_operandB, ctrl_ALUopcode, ctrl_shiftamt, data_res
     output [31:0] data_result;
     output isNotEqual, isLessThan, overflow;
 
+    // initial begin
+    //     #5; 
+    //     $display("operand: %b", data_operandA); 
+    //     //$finish; 
+    // end
+
 
     // Subtract? 
     wire w_sub; 
@@ -58,6 +64,7 @@ module alu(data_operandA, data_operandB, ctrl_ALUopcode, ctrl_shiftamt, data_res
     // ALU output
     mux_8 outputMux(data_result, ctrl_ALUopcode[2:0], w_addResult, w_addResult, w_AND, w_OR, w_SLL, w_SRA, 0, 0); 
 
+    
     
 
 endmodule

@@ -19,6 +19,7 @@ multControl.v
 multControl_tb.v
 multdiv.v
 multdiv_tb.v
+multdiv_tb_2.v
 mux_4.v
 mux_8.v
 or_bitwise.v
