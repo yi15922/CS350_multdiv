@@ -13,13 +13,19 @@ module multdiv_tb_2();
 
     multdiv multDiv(data_operandA, data_operandB, ctrl_MULT, 1'b0, clock, data_result, data_exception, data_resultRDY); 
 
-    assign data_operandA = 2; 
-    assign data_operandB = -4; 
+    assign data_operandA = 16777215; 
+    assign data_operandB = -13421772; 
+    wire [31:0] w_xor; 
+    assign w_xor = 111111111111111100110011001100110; 
+    wire w_result; 
+    assign w_result = ^w_xor; 
 
     initial begin 
         assign ctrl_MULT = 1; 
         #40; 
         assign ctrl_MULT = 0; 
+        //$display("XOR: %b, result: %b", w_xor, w_result); 
+
 
         #3000; 
         $finish; 

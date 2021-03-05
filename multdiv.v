@@ -39,11 +39,11 @@ module multdiv(
     assign initialRegInput[32:1] = data_operandB; 
     assign initialRegInput[64:33] = 32'b0; 
 
-    // always @(runningProduct) begin
-    //     #5; 
-    //     $display("running product: %b, exception: %b, ready: %b, result: %d", runningProduct, data_exception, data_resultRDY, data_result); 
-    //     //$finish; 
-    // end
+    always @(data_resultRDY) begin
+        #5; 
+        $display("running product: %b, exception: %b, xor check: %b, and check: %b, results check: %b", runningProduct[64:32], data_exception, w_overflowCheck1, w_overflowCheck2, w_overflowCheck3); 
+        //$finish; 
+    end
 
     assign regInput = ctrl_MULT ? initialRegInput : shiftProductOut; 
 
@@ -56,9 +56,20 @@ module multdiv(
 
     wire w_overflowCheck1; 
     wire w_overflowCheck2; 
-    alu overflowCheck1(0, runningProduct[64:33], 5'b1, 5'b0, throwAway4, w_overflowCheck1, throwAway5, throwAway6);     
-    alu overflowCheck2(-1, runningProduct[64:33], 5'b1, 5'b0, throwAway7, w_overflowCheck2, throwAway8, throwAway9);     
-    assign data_exception = w_overflowCheck1 && w_overflowCheck2; 
+    wire w_overflowCheck3; 
+    assign w_overflowCheck3 = (data_operandA[31] && data_operandB[31] && data_result[31]) ||
+                            (!data_operandA[31] && data_operandB[31] && !data_result[31]) || 
+                            (data_operandA[31] && !data_operandB[31] && !data_result[31]) || 
+                            (!data_operandA[31] && !data_operandB[31] && data_result[31]); 
 
+    assign w_overflowCheck1 = |runningProduct[64:32]; 
+    assign w_overflowCheck2 = &runningProduct[64:32]; 
+    assign data_exception = w_overflowCheck1 && !w_overflowCheck2; 
+
+
+
+
+    // alu overflowCheck1(0, runningProduct[64:33], 5'b1, 5'b0, throwAway4, w_overflowCheck1, throwAway5, throwAway6);     
+    // alu overflowCheck2(-1, runningProduct[64:33], 5'b1, 5'b0, throwAway7, w_overflowCheck2, throwAway8, throwAway9);     
 
 endmodule
