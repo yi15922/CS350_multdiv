@@ -11,10 +11,12 @@ barrelshifter65.v
 claBlock.v
 claBlock_tb.v
 dffe.v
+divControl.v
 full_adder.v
 full_adder_tb.v
 inverter.v
 inverter_tb.v
+mult.v
 multControl.v
 multControl_tb.v
 multdiv.v
