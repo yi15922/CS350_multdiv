@@ -33,9 +33,9 @@ module multControl_tb();
 
     
 
-    // always @(data_in) begin
-    //     #5; 
-    //     $display("data_in: %b, add: %d, sub: %d, shift: %d, shiftProduct: %d, nop: %d", data_in, add, sub, shiftMultiplicand, shiftProduct, nop); 
-    // end
+    always @(data_in) begin
+        #5; 
+        $display("data_in: %b, add: %d, sub: %d, shift: %d, shiftProduct: %d, nop: %d", data_in, add, sub, shiftMultiplicand, shiftProduct, nop); 
+    end
 
 endmodule

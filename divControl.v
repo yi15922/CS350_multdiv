@@ -11,10 +11,10 @@ module divControl(add, sub, shiftQuotient, nop, ready, Q0, MSB, clock, start);
     register65 incrementRegister(w_incrementResult, clock, !ready, start, w_adderOut); 
     assign ready = w_incrementResult[5]; 
 
-    always @(w_incrementResult) begin
-        #5; 
-        $display("counter: %d, ready: %b", w_incrementResult[31:0], ready); 
-    end
+    // always @(w_incrementResult) begin
+    //     #5; 
+    //     $display("counter: %d, ready: %b", w_incrementResult[31:0], ready); 
+    // end
 
 
 
