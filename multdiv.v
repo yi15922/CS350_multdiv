@@ -11,7 +11,7 @@ module multdiv(
     output data_exception, data_resultRDY;
 
     wire w_mult; 
-    dffe resultSelect(w_mult, ctrl_MULT, clock, ctrl_MULT, 1'b0); 
+    dffe resultSelect(w_mult, ctrl_MULT, clock, ctrl_MULT || ctrl_DIV, 1'b0); 
 
     wire [31:0] w_multResult, w_divResult; 
     wire w_multException, w_divException, w_multRDY, w_divRDY; 

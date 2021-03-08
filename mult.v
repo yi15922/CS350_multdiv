@@ -53,6 +53,6 @@ module mult(data_operandA, data_operandB, ctrl_MULT,
     
     assign w_overflowCheck1 = |runningProduct[64:32]; 
     assign w_overflowCheck2 = &runningProduct[64:32]; 
-    assign data_exception = w_overflowCheck1 && !w_overflowCheck2; 
+    assign data_exception = w_overflowCheck1 && !w_overflowCheck2 || (data_operandA[31] && !(|data_operandA[30:0]) && (&data_operandB)); 
 
 endmodule

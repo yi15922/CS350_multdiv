@@ -14,8 +14,8 @@ module multdiv_tb_2();
 
     multdiv multDiv(data_operandA, data_operandB, ctrl_MULT, ctrl_DIV, clock, data_result, data_exception, data_resultRDY); 
 
-    assign data_operandA = 7; 
-    assign data_operandB = 3; 
+    assign data_operandA = -2147483648; 
+    assign data_operandB = -1; 
     wire [31:0] w_xor; 
 
     initial begin 

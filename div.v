@@ -8,11 +8,12 @@ module div(data_operandA, data_operandB, ctrl_DIV, clock,
     output data_exception, data_resultRDY;
 
     wire negative; 
+    wire [2:0] complementOverflow; 
     wire [31:0] dividend, divisor, negativeA, negativeB, negativeResult, signedResult; 
     assign negative = data_operandA[31] ^ data_operandB[31]; 
-    complement negativeDividend(negativeA, data_operandA); 
-    complement negativeDivisor(negativeB, data_operandB); 
-    complement negResult(negativeResult, w_unshiftedQuotient[31:0]); 
+    complement negativeDividend(negativeA, data_operandA, complementOverflow[0]); 
+    complement negativeDivisor(negativeB, data_operandB, complementOverflow[1]); 
+    complement negResult(negativeResult, w_unshiftedQuotient[31:0], complementOverflow[2]); 
     assign dividend = data_operandA[31] ? negativeA : data_operandA; 
     assign divisor = data_operandB[31] ? negativeB : data_operandB; 
     assign signedResult = negative ? negativeResult : w_unshiftedQuotient[31:0]; 
@@ -39,9 +40,9 @@ module div(data_operandA, data_operandB, ctrl_DIV, clock,
     assign initialRegInput[64:32] = 33'b0; 
     assign w_regInput = ctrl_DIV ? initialRegInput : w_finalQuotient; 
 
-    always @(signedResult)begin
+    always @(data_resultRDY)begin
         #5; 
-        $display("result: %b, negated result: %b", signedResult, negativeResult); 
+        $display("exception: %b, dividend: %b, divisor: %b", data_exception, data_operandA, data_operandB); 
     end
     wire w_exceptionCheck; 
     assign w_exceptionCheck = |data_operandB; 
