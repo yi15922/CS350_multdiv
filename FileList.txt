@@ -11,7 +11,9 @@ barrelshifter65.v
 claBlock.v
 claBlock_tb.v
 dffe.v
+div.v
 divControl.v
+divControl_tb.v
 full_adder.v
 full_adder_tb.v
 inverter.v
