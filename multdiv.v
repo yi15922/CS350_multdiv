@@ -25,7 +25,7 @@ module multdiv(
 
     always @(data_resultRDY) begin
         #5; 
-        $display("mult: %b, data_result: %d, ready: %b", w_mult, data_result, data_resultRDY); 
+        $display("mult: %b, div: %b, data_result: %d, ready: %b", ctrl_MULT, ctrl_DIV, data_result, data_resultRDY); 
     end
 
 
