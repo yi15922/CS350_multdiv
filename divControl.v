@@ -1,6 +1,6 @@
-module divControl(add, sub, shiftQuotient, nop, ready, Q0, MSB, clock, start); 
+module divControl(add, sub, shiftQuotient, ready, Q0, MSB, clock, start); 
     input MSB, clock, start; 
-    output add, sub, shiftQuotient, nop, ready, Q0; 
+    output add, sub, shiftQuotient, ready, Q0; 
 
     wire [64:0] w_incrementResult; 
     wire w_writeEnable; 
@@ -11,11 +11,14 @@ module divControl(add, sub, shiftQuotient, nop, ready, Q0, MSB, clock, start);
     register65 incrementRegister(w_incrementResult, clock, !ready, start, w_adderOut); 
     assign ready = w_incrementResult[5]; 
 
-    // always @(w_incrementResult) begin
-    //     #5; 
-    //     $display("counter: %d, ready: %b", w_incrementResult[31:0], ready); 
-    // end
+    always @(w_incrementResult) begin
+        #5; 
+        $display("counter: %d, ready: %b, msb: %d, add: %b, sub: %b, Q0: %b", w_incrementResult[31:0], ready, MSB, add, sub, Q0); 
+    end
 
+    assign Q0 = !MSB; 
+    assign sub = !MSB; 
+    assign add = MSB; 
 
 
 endmodule

@@ -6,20 +6,22 @@ module divControl_tb();
 
 
 
-    wire add, sub, shiftQuotient, ready, nop, Q0; 
+    wire add, sub, shiftQuotient, ready, Q0; 
     reg start;
-    reg MSB = 0; 
-    assign Q0 = 0; 
+    reg MSB; 
 
-    divControl control(add, sub, shiftQuotient, nop, ready, Q0, MSB, clock, start); 
+    divControl control(add, sub, shiftQuotient, ready, Q0, MSB, clock, start); 
 
     //assign data_in = 000; 
 
     initial begin 
         assign start = 1; 
+        assign MSB = 0;
         #40; 
         assign start = 0; 
-
+        #200
+        assign MSB = 1; 
+        
         #3000; 
         $finish; 
 
