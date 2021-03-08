@@ -40,10 +40,10 @@ module div(data_operandA, data_operandB, ctrl_DIV, clock,
     assign initialRegInput[64:32] = 33'b0; 
     assign w_regInput = ctrl_DIV ? initialRegInput : w_finalQuotient; 
 
-    always @(data_resultRDY)begin
-        #5; 
-        $display("exception: %b, dividend: %b, divisor: %b", data_exception, data_operandA, data_operandB); 
-    end
+    // always @(data_resultRDY)begin
+    //     #5; 
+    //     $display("exception: %b, dividend: %b, divisor: %b", data_exception, data_operandA, data_operandB); 
+    // end
     wire w_exceptionCheck; 
     assign w_exceptionCheck = |data_operandB; 
     assign data_exception = !w_exceptionCheck; 

@@ -23,10 +23,10 @@ module multdiv(
     assign data_exception = w_mult ? w_multException : w_divException; 
     assign data_resultRDY = w_mult ? w_multRDY : w_divRDY;  
 
-    always @(data_resultRDY) begin
-        #5; 
-        $display("mult: %b, div: %b, data_result: %d, ready: %b", ctrl_MULT, ctrl_DIV, data_result, data_resultRDY); 
-    end
+    // always @(data_resultRDY) begin
+    //     #5; 
+    //     $display("mult: %b, div: %b, data_result: %d, ready: %b", ctrl_MULT, ctrl_DIV, data_result, data_resultRDY); 
+    // end
 
 
 endmodule
