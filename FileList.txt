@@ -10,6 +10,7 @@ and_bitwise.v
 barrelshifter65.v
 claBlock.v
 claBlock_tb.v
+complement.v
 dffe.v
 div.v
 divControl.v

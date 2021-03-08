@@ -7,6 +7,17 @@ module div(data_operandA, data_operandB, ctrl_DIV, clock,
     output [31:0] data_result;
     output data_exception, data_resultRDY;
 
+    wire negative; 
+    wire [31:0] dividend, divisor, negativeA, negativeB, negativeResult, signedResult; 
+    assign negative = data_operandA[31] ^ data_operandB[31]; 
+    complement negativeDividend(negativeA, data_operandA); 
+    complement negativeDivisor(negativeB, data_operandB); 
+    complement negResult(negativeResult, w_unshiftedQuotient[31:0]); 
+    assign dividend = data_operandA[31] ? negativeA : data_operandA; 
+    assign divisor = data_operandB[31] ? negativeB : data_operandB; 
+    assign signedResult = negative ? negativeResult : w_unshiftedQuotient[31:0]; 
+
+
     wire add, shiftQuotient, Q0, aluOp, throwAway1, throwAway2, throwAway3; 
     wire [64:0] w_regInput, w_finalQuotient, w_shiftQuotientOut, w_unshiftedQuotient; 
     wire [31:0] aluResult; 
@@ -21,19 +32,19 @@ module div(data_operandA, data_operandB, ctrl_DIV, clock,
 
     divControl controller(add, shiftQuotient, data_resultRDY, Q0, w_unshiftedQuotient[63], clock, ctrl_DIV); 
     register65 quotientRegister(w_unshiftedQuotient, clock, 1'b1, 1'b0, w_regInput); 
-    alu ALU(w_shiftQuotientOut[63:32], data_operandB, aluOp, 0, aluResult, throwAway1, throwAway2, throwAway3); 
+    alu ALU(w_shiftQuotientOut[63:32], divisor, aluOp, 0, aluResult, throwAway1, throwAway2, throwAway3); 
 
     wire [64:0] initialRegInput; 
-    assign initialRegInput[31:0] = data_operandA; 
+    assign initialRegInput[31:0] = dividend; 
     assign initialRegInput[64:32] = 33'b0; 
     assign w_regInput = ctrl_DIV ? initialRegInput : w_finalQuotient; 
 
-    always @(w_unshiftedQuotient)begin
+    always @(signedResult)begin
         #5; 
-        $display("unshiftedQuotient: %b, shiftQuotientOut: %b, ready: %b, finalQuotient: %b", w_unshiftedQuotient, w_shiftQuotientOut, data_resultRDY, w_finalQuotient); 
+        $display("result: %b, negated result: %b", signedResult, negativeResult); 
     end
     wire w_exceptionCheck; 
     assign w_exceptionCheck = |data_operandB; 
     assign data_exception = !w_exceptionCheck; 
-    assign data_result = w_unshiftedQuotient[31:0]; 
+    assign data_result = signedResult; 
 endmodule
