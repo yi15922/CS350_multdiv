@@ -11,6 +11,7 @@ barrelshifter65.v
 claBlock.v
 claBlock_tb.v
 complement.v
+decoder.v
 dffe.v
 div.v
 divControl.v
@@ -28,7 +29,10 @@ multdiv_tb_2.v
 mux_4.v
 mux_8.v
 or_bitwise.v
+reg32.v
 regfile.v
+register.v
 register65.v
 register65_tb.v
+tristate_buffer.v
 tristate_buffer65.v

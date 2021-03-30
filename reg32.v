@@ -1,4 +1,4 @@
-module regPC(data_out, clk, input_enable, reset, data_in); 
+module reg32(data_out, clk, input_enable, reset, data_in); 
     input clk, input_enable, reset; 
     input [31:0] data_in; 
     output [31:0] data_out; 
