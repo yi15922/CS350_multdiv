@@ -28,4 +28,6 @@ module barrelshifter(out, A, shamt);
     assign shift1[0] = 0;
     twoToOneMux mux0(out, shamt[0], muxout1, shift1);
 
+    
+
 endmodule

@@ -13,11 +13,14 @@ module multdiv(
     wire w_mult; 
     dffe resultSelect(w_mult, ctrl_MULT, clock, ctrl_MULT || ctrl_DIV, 1'b0); 
 
-    wire [31:0] w_multResult, w_divResult; 
+    wire [31:0] w_multResult, w_divResult, savedOperandA, savedOperandB; 
     wire w_multException, w_divException, w_multRDY, w_divRDY; 
 
-    mult multModule(data_operandA, data_operandB, ctrl_MULT, clock, w_multResult, w_multException, w_multRDY);
-    div divModule(data_operandA, data_operandB, ctrl_DIV, clock, w_divResult, w_divException, w_divRDY); 
+    reg32 operandA(savedOperandA, clock, ctrl_MULT || ctrl_DIV, 1'b0, data_operandA); 
+    reg32 operandB(savedOperandB, clock, ctrl_MULT || ctrl_DIV, 1'b0, data_operandB); 
+
+    mult multModule(savedOperandA, savedOperandB, ctrl_MULT, clock, w_multResult, w_multException, w_multRDY);
+    div divModule(savedOperandA, savedOperandB, ctrl_DIV, clock, w_divResult, w_divException, w_divRDY); 
 
     assign data_result = w_mult ? w_multResult : w_divResult; 
     assign data_exception = w_mult ? w_multException : w_divException; 
