@@ -16,8 +16,8 @@ module multdiv(
     wire [31:0] w_multResult, w_divResult, savedOperandA, savedOperandB; 
     wire w_multException, w_divException, w_multRDY, w_divRDY; 
 
-    reg32 operandA(savedOperandA, clock, ctrl_MULT || ctrl_DIV, 1'b0, data_operandA); 
-    reg32 operandB(savedOperandB, clock, ctrl_MULT || ctrl_DIV, 1'b0, data_operandB); 
+    reg32 operandA(savedOperandA, !clock, ctrl_MULT || ctrl_DIV, 1'b0, data_operandA); 
+    reg32 operandB(savedOperandB, !clock, ctrl_MULT || ctrl_DIV, 1'b0, data_operandB); 
 
     mult multModule(savedOperandA, savedOperandB, ctrl_MULT, clock, w_multResult, w_multException, w_multRDY);
     div divModule(savedOperandA, savedOperandB, ctrl_DIV, clock, w_divResult, w_divException, w_divRDY); 
